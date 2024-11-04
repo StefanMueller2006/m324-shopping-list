@@ -6,23 +6,55 @@ on:
       - main
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          echo "Installing dependencies for linting..."
+          npm install
 
-      - name: Run Linter
-        run: npm run lint
+      - name: Run linter
+        run: |
+          echo "Running linter..."
+          npm run lint
 
-      - name: Run Tests
-        run: npm test
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies for testing..."
+          npm install
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Simulate deployment
+        run: |
+          echo "Deployment successful"
