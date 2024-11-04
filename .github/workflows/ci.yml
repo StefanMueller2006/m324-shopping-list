@@ -1,0 +1,17 @@
+name: CI Workflow für Modul 324
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Run a simple script
+        run: echo "Hallo, Welt!"
