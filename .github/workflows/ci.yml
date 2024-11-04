@@ -13,5 +13,16 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Run a simple script
-        run: echo "Hallo, Welt!"
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test
